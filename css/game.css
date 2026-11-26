@@ -103,3 +103,20 @@ html, body { margin: 0; height: 100%; background: #ffd6e7; }
 .tut.is-left { transform: translate(0, -50%); animation-name: tut-bob-left; }
 .tut.is-left .icon { transform: rotate(90deg); }
 @keyframes tut-bob-left { 0%, 100% { margin-left: 0; } 50% { margin-left: 0.5rem; } }
+
+/* Loading screen: the nail fills up. A full-screen pink gradient, the title, one big nail painting itself from the
+   cuticle up (scaled by --p, 0..1, set by the shell as files load) and the percentage. Sparkles at 100%. */
+#loading { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+  background: linear-gradient(160deg, #ffb8d6, #ff6fae 55%, #c44dff); padding: env(safe-area-inset-top, 0) 16px env(safe-area-inset-bottom, 0); }
+#loading[hidden] { display: none; }
+.ld-title { font: 700 clamp(2rem, 9vmin, 3.6rem)/1 var(--font-display, 'Fredoka', system-ui, sans-serif); color: #fff; letter-spacing: .02em;
+  text-shadow: 0 .2rem 0 #7a1650, 0 0 1.2rem rgba(122, 22, 80, .35); }
+.ld-art { width: min(56vmin, 19rem); height: auto; overflow: visible; filter: drop-shadow(0 .5rem 1rem rgba(90, 20, 70, .25)); }
+.ld-fill { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(var(--p)); transition: transform .25s ease-out; }
+.ld-spark { opacity: 0; transition: opacity .2s; }
+#loading.is-full .ld-spark { opacity: 1; animation: ld-twinkle .6s ease-in-out infinite alternate; }
+@keyframes ld-twinkle { from { transform: scale(.92); } to { transform: scale(1.06); } }
+.ld-spark { transform-box: view-box; transform-origin: 50% 40%; }
+.ld-pct { font: 700 clamp(1.6rem, 6vmin, 2.4rem)/1 var(--font-display, 'Fredoka', system-ui, sans-serif); color: #fff; font-variant-numeric: tabular-nums;
+  text-shadow: 0 .15rem 0 #7a1650; }
+@media (prefers-reduced-motion: reduce) { .ld-fill { transition: none; } #loading.is-full .ld-spark { animation: none; } }

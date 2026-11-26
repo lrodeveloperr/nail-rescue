@@ -292,7 +292,13 @@
   var rewardButtons = [];
 
   // ---------------------------------------------------------------- boot
-  function setProgress(p) { var b = $('loading-bar'); if (b) b.style.width = Math.round(Math.max(0, Math.min(1, p)) * 100) + '%'; }
+  function setProgress(p) {
+    p = Math.max(0, Math.min(1, p));
+    var b = $('loading-bar'); if (b) b.style.width = Math.round(p * 100) + '%';
+    // the game's own loading art reads --p (0..1) and the percentage text
+    var l = $('loading'); if (l) { l.style.setProperty('--p', p.toFixed(3)); l.classList.toggle('is-full', p >= 1); }
+    var t = $('loading-pct'); if (t) t.textContent = Math.round(p * 100) + '%';
+  }
   function maybeGameReady() {
     // INT-2b: interactive, loader gone, and not behind a pre-roll / host pause
     if (readySent || !booted || paused()) return;

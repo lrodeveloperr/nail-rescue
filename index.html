@@ -51,10 +51,20 @@
   </div>
 </main>
 
-<div id="loading" class="modal" role="status" aria-label="Loading">
-  <div class="panel panel--small">
-    <div class="panel__body"><div class="meter"><div class="meter__fill" id="loading-bar" style="--v:1;width:10%"></div></div></div>
-  </div>
+<div id="loading" role="status" aria-label="Loading" style="--p:0">
+  <!-- The nail fills up: one big nail paints itself from the cuticle up as the game loads (the fill is the progress) -->
+  <div class="ld-title">Nail Rescue</div>
+  <svg class="ld-art" viewBox="0 0 180 300" aria-hidden="true">
+    <defs><clipPath id="ld-clip"><path d="M60 250 L60 130 C60 80 75 62 90 56 C105 62 120 80 120 130 L120 250 Q90 262 60 250Z"/></clipPath>
+      <linearGradient id="ld-polish" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e8197c"/><stop offset="1" stop-color="#ff5fb4"/></linearGradient></defs>
+    <rect x="50" y="196" width="80" height="104" rx="40" fill="#e8b996" stroke="#b5835f" stroke-width="2.4"/>
+    <path d="M60 250 L60 130 C60 80 75 62 90 56 C105 62 120 80 120 130 L120 250 Q90 262 60 250Z" fill="#fde4ec" stroke="#3d3f55" stroke-width="2.6"/>
+    <g clip-path="url(#ld-clip)"><rect class="ld-fill" x="40" y="56" width="100" height="210" fill="url(#ld-polish)"/>
+      <rect x="69" y="72" width="8" height="160" rx="4" fill="#ffffff" opacity=".45"/></g>
+    <g class="ld-spark"><path d="M90 30 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z" fill="#ffffff"/><path d="M140 110 l3.5 8 8 3.5 -8 3.5 -3.5 8 -3.5 -8 -8 -3.5 8 -3.5z" fill="#fff6b0"/><path d="M38 160 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z" fill="#ffffff"/></g>
+  </svg>
+  <div class="ld-pct" id="loading-pct">0%</div>
+  <div id="loading-bar" hidden></div>
 </div>
 
 <!-- INT-1: the Playables SDK is the first script, with only src. Relative paths only after it. -->
